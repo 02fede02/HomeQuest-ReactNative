@@ -36,16 +36,13 @@ export const LoginScreen = ({ navigation }) => {
         }
       });
 
-      console.log(user);
-      console.log(token);
+      handleAuthData( user );
 
-      // handleAuthData( data.user );
+      await SecureStore.setItemAsync( 'x-token', token );
 
-      // await SecureStore.setItemAsync( 'x-token', data.token );
+      setIsLoading(false);
 
-      // setIsLoading(false);
-
-      // navigation.navigate('HomeScreen');
+      navigation.navigate('HomeScreen');
 
     } catch (error) {
       setIsLoading(false);
@@ -56,7 +53,6 @@ export const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
-      {loading && <Loader />}
 
       { 
         isLoading
