@@ -10,7 +10,7 @@ import { endpoint } from "../services/endpoint";
 export const LoginScreen = ({ navigation }) => {
   const { handleAuthData } = useContext( AuthContext );
   const [ secured, setSecured ] = useState( true );
-  const [ formData, setFormData ] = useState({ email: '', password: '' });
+  const [ formData, setFormData ] = useState({});
   const [ isLoading, setIsLoading ] = useState( false );
   const [ isError, setIsError ] = useState( false );
 
@@ -86,7 +86,7 @@ export const LoginScreen = ({ navigation }) => {
               inputContainerStyle={{ backgroundColor: "#E4E4E4" }}
               keyboardType='email-address'
               value={formData.email}
-              onChangeText={(value) => handleChange('email', value)}
+              onChangeText={ e => handleChange( 'email', e ) }
             />
 
           <View style={styles.passwordInputView}>
@@ -99,7 +99,7 @@ export const LoginScreen = ({ navigation }) => {
                 placeholder="Ingresa tu contraseña"
                 placeholderTextColor={"#979797"}
                 value={formData.password}
-                onChangeText={(value) =>  handleChange('password', value)}
+                onChangeText={ e =>  handleChange( 'password', e )}
               />
               <Ionicons
                 style={styles.passwordInputIcon}
