@@ -40,7 +40,7 @@ export const Register2Screen = ({ route, navigation }) => {
     setIsLoading(true);
 
     try {
-      const response = await endpoint.post( '/users', JSON.stringify( formData ), {
+      await endpoint.post( '/users', JSON.stringify( formData ), {
         headers: {
           'Content-Type': 'application/json'
         }

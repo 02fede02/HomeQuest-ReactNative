@@ -1,20 +1,24 @@
+import { useContext, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import * as SecureStore from 'expo-secure-store';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { useContext, useState } from "react";
 import { ErrorMessage, GreenButton, Loader } from "../components";
 import { AuthContext } from "../context/auth-context/AuthContext";
 import { endpoint } from "../services/endpoint";
 
 export const LoginScreen = ({ navigation }) => {
-  const { authData, handleAuthData } = useContext(AuthContext)
-  const [secured, setSecured] = useState(true);
-  const [inputs, setInputs] = useState({email: '', password: ''})
-  const [loading, setLoading] = useState(true)
-  const [isError, setIsError] = useState(false)
+  const { handleAuthData } = useContext( AuthContext );
+  const [ secured, setSecured ] = useState( true );
+  const [ formData, setFormData ] = useState({ email: '', password: '' });
+  const [ isLoading, setIsLoading ] = useState( false );
+  const [ isError, setIsError ] = useState( false );
 
   const handleChange = (name, value) => {
-    setInputs({...inputs, [name]: value})
+    setFormData({
+      ...formData,
+      [name]: value
+    })
   }
 
   const handleErrorModal = (navigation) => {
@@ -22,25 +26,28 @@ export const LoginScreen = ({ navigation }) => {
     navigation.navigate('MainScreen')
   }
 
-  console.log(authData)
-
   const handleLogin = async () => {
     try {
-      setLoading(true)
-      const response = await endpoint.post(
-        '/auth',
-        {
-          email: inputs.email,
-          password: inputs.password,
+      setIsLoading( true );
+
+      const { data } = await endpoint.post( '/auth', JSON.stringify( formData ), {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      );
-      handleAuthData(response.data)
-      setLoading(false)
-      navigation.navigate('HomeScreen')
+      });
+
+      handleAuthData( data.user );
+
+      await SecureStore.setItemAsync( 'x-token', data.token );
+
+      setIsLoading(false);
+
+      navigation.navigate('HomeScreen');
+
     } catch (error) {
-      setLoading(false)
-      console.log(error)
-      setIsError(true)
+      setIsLoading(false);
+      console.log(error);
+      setIsError(true);
     }
   }
 
@@ -48,13 +55,10 @@ export const LoginScreen = ({ navigation }) => {
     <KeyboardAwareScrollView style={{flex: 1, backgroundColor: '#fff'}}>
 
       { 
-        loading &&
-          <Loader />
-      }
-
-      {
-        !loading &&
-          <>
+        isLoading
+        ? <Loader />
+        
+        : <>
           <View style={styles.container}>
           <AntDesign
             name="arrowleft"
@@ -78,7 +82,7 @@ export const LoginScreen = ({ navigation }) => {
               placeholderTextColor={"#979797"}
               inputContainerStyle={{ backgroundColor: "#E4E4E4" }}
               keyboardType='email-address'
-              value={inputs.email}
+              value={formData.email}
               onChangeText={(value) => handleChange('email', value)}
             />
 
@@ -91,7 +95,7 @@ export const LoginScreen = ({ navigation }) => {
                 autoCorrect={false}
                 placeholder="Ingresa tu contraseña"
                 placeholderTextColor={"#979797"}
-                value={inputs.password}
+                value={formData.password}
                 onChangeText={(value) =>  handleChange('password', value)}
               />
               <Ionicons
@@ -104,7 +108,7 @@ export const LoginScreen = ({ navigation }) => {
                 </View>
 
                   <Pressable style={styles.button} onPress={handleLogin}>
-                    <GreenButton text={!loading ? 'Aceptar' : 'Enviando...'} />
+                    <GreenButton text={!isLoading ? 'Aceptar' : 'Enviando...'} />
                   </Pressable>
                 </View>
             </View>
