@@ -7,7 +7,7 @@ import { AuthContext } from "../context/auth-context/AuthContext";
 import { endpoint } from "../services/endpoint";
 
 export const LoginScreen = ({ navigation }) => {
-  const { authData, handleauthData } = useContext(AuthContext)
+  const { authData, handleAuthData } = useContext(AuthContext)
   const [secured, setSecured] = useState(true);
   const [inputs, setInputs] = useState({email: '', password: ''})
   const [loading, setLoading] = useState(true)
@@ -34,7 +34,7 @@ export const LoginScreen = ({ navigation }) => {
           password: inputs.password,
         }
       );
-      handleauthData(response.data)
+      handleAuthData(response.data)
       setLoading(false)
       navigation.navigate('HomeScreen')
     } catch (error) {

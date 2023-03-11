@@ -17,10 +17,10 @@ export const MenuScreen = ({ navigation }) => {
   const { isLogOutModalOpen, handleToggleLogOutModal } = useLogOutModal();
   const { isLanguageModalOpen, handleToggleLanguageModal } = useLanguageModal();
   const { isAboutUsModalOpen, handleToggleAboutUsModal } = useAboutUsModal();
-  const { authData, handleauthData } = useContext(AuthContext);
+  const { authData, handleAuthData } = useContext(AuthContext);
   
   const handleLogOut = () => {
-    handleauthData({})
+    handleAuthData({})
     handleToggleLogOutModal()
   }
 

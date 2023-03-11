@@ -10,7 +10,7 @@ import { ErrorMessage } from '../modal';
 import { Loader } from '../Loader';
 
 export const UnregisteredMessage = ({ text, screen }) => {
-  const {authData, handleauthData} = useContext(AuthContext)
+  const {authData, handleAuthData} = useContext(AuthContext)
   const navigation = useNavigation()
   const [secured, setSecured] = useState(true);
   const [inputs, setInputs] = useState({email: '', password: ''})
@@ -41,7 +41,7 @@ export const UnregisteredMessage = ({ text, screen }) => {
         }
       );
       console.log(response.data)
-      handleauthData(response.data.userData)
+      handleAuthData(response.data.userData)
       // setLoading(false)
       handleToggleModal()
       navigation.navigate(screen)
