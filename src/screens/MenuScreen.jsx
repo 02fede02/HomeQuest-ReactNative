@@ -28,7 +28,7 @@ export const MenuScreen = ({ navigation }) => {
     <View style={styles.mainContainer}>
       <SimpleHeader title={"Menú"} />
       <ScrollView>
-        {!authData.user ? (
+        {!authData ? (
           <HeaderMenuUnregistered />
         ) : (
           <View style={styles.profileContainer}>
@@ -102,7 +102,7 @@ export const MenuScreen = ({ navigation }) => {
             </Text>
           </Pressable>
 
-          {authData.email ? (
+          {authData ? (
             <Pressable
               style={[styles.optionsSubContainer, { borderBottomWidth: 0 }]}
               onPress={handleToggleLogOutModal}

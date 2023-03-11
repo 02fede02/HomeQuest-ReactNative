@@ -1,5 +1,5 @@
 import * as SplashScreen from "expo-splash-screen";
-import MainStack from "./navigation/MainStack";
+import { MainStack } from "./navigation/";
 import { AuthProvider } from "./src/context/auth-context/AuthContext";
 
 // TODO: Resize splash screen

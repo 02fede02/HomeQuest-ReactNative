@@ -49,10 +49,11 @@ export const LoginScreen = ({ navigation }) => {
       console.log(error);
       setIsError(true);
     }
-  }
+  };
 
   return (
-    <KeyboardAwareScrollView style={{flex: 1, backgroundColor: '#fff'}}>
+    <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+      {loading && <Loader />}
 
       { 
         isLoading
@@ -60,19 +61,22 @@ export const LoginScreen = ({ navigation }) => {
         
         : <>
           <View style={styles.container}>
-          <AntDesign
-            name="arrowleft"
-            size={24}
-            color="black"
-            style={styles.arrow}
-            onPress={() => navigation.goBack()}
-          />
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={styles.arrow}
+              onPress={() => navigation.goBack()}
+            />
 
-          <Image style={styles.logo} source={require("../../assets/logo.png")} />
+            <Image
+              style={styles.logo}
+              source={require("../../assets/logo.png")}
+            />
 
-          <Text style={styles.title}>Bienvenido a Home Quest!</Text>
+            <Text style={styles.title}>Bienvenido a Home Quest!</Text>
 
-          <Text style={styles.subtitle}>Ingresar con mi E-Mail</Text>
+            <Text style={styles.subtitle}>Ingresar con mi E-Mail</Text>
 
           <View style={styles.inputs}>
             <TextInput
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
   arrow: {
     alignSelf: "flex-start",
     marginTop: 38,
-    marginLeft: 23
+    marginLeft: 23,
   },
   logo: {
     marginTop: 40,
@@ -212,6 +216,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 328,
-    marginTop: 44
-  }
+    marginTop: 44,
+  },
 });

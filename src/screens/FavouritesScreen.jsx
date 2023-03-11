@@ -15,34 +15,34 @@ const HighlightedCards = [
 export const FavouritesScreen = () => {
   const { authData } = useContext(AuthContext);
   const [userFavourites, setUserFavourites] = useState([]);
-  const userId = authData.userId;
+  
 
-  useEffect(() => {
-    const response = async () => {
-      await axios
-        .get(
-          `https://home-quest-app.onrender.com/api/v1/users/${userId}/favorites`,
-          {
-            headers: {
-              Authorization: `Bearer ${authData.token}`,
-            },
-          }
-        )
-        .then((res) => {
-          if (res.data.favorite) {
-            setUserFavourites(res.data.favorite);
-          }
-        })
-        .catch((err) => console.log(err));
-    };
-    response();
-  }, [authData]);
+  // useEffect(() => {
+  //   const response = async () => {
+  //     await axios
+  //       .get(
+  //         `https://home-quest-app.onrender.com/api/v1/users/${userId}/favorites`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${authData.token}`,
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         if (res.data.favorite) {
+  //           setUserFavourites(res.data.favorite);
+  //         }
+  //       })
+  //       .catch((err) => console.log(err));
+  //   };
+  //   response();
+  // }, [authData]);
 
   return (
     <View style={styles.container}>
       <SimpleHeader title={"Favoritos"} />
 
-      {!authData.user ? (
+      {!authData ? (
         <UnregisteredMessage text={"guardar favoritos"} screen={'Favoritos'}/>
       ) : userFavourites.length > 1 ? (
         <FlatList

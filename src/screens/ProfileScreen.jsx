@@ -91,7 +91,7 @@ export const ProfileScreen = () => {
               <View style={styles.selectedBorderBottom} />
             </Pressable>
             <Pressable
-              style={[styles.middleInternalContainer, styles.selected]}
+              style={[styles.middleInternalContainer]}
               onPress={() => handleOption("message")}
             >
               <Image
@@ -112,6 +112,8 @@ export const ProfileScreen = () => {
               </Text>
             </Pressable>
           </View>
+          <View style={[ styles.publishBottom, option === "publish" ? styles.selected : null ]} />
+          <View style={[styles.messageBottom, option === "message" ? styles.selected : null]} />
         </View>
         <View style={styles.optionContainer}>
           {option === "publish" ? (
@@ -184,15 +186,17 @@ const styles = StyleSheet.create({
   iconSelected: {
     tintColor: "#018349",
   },
-  dollarHouseIconSelected: {
-    // width: 30,
-    // height: 30
+  selected: {
+    borderBottomColor: '#1E1E1E',
+    borderBottomWidth: 3
   },
-  dollarHouseIcon: {
-    // width: 25,
-    // height: 25
+  publishBottom: {
+    width: '50%'
   },
-  selected: {},
+  messageBottom: {
+    alignSelf: 'flex-end',
+    width: '50%'
+  },
   selectedText: {
     color: "#018349",
   },
