@@ -1,5 +1,12 @@
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { useContext, useState } from "react";
 import { ErrorMessage, GreenButton, Loader } from "../components";
@@ -7,112 +14,108 @@ import { AuthContext } from "../context/auth-context/AuthContext";
 import { endpoint } from "../services/endpoint";
 
 export const LoginScreen = ({ navigation }) => {
-  const { authData, handleAuthData } = useContext(AuthContext)
+  const { authData, handleAuthData } = useContext(AuthContext);
   const [secured, setSecured] = useState(true);
-  const [inputs, setInputs] = useState({email: '', password: ''})
-  const [loading, setLoading] = useState(true)
-  const [isError, setIsError] = useState(false)
+  const [inputs, setInputs] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (name, value) => {
-    setInputs({...inputs, [name]: value})
-  }
+    setInputs({ ...inputs, [name]: value });
+  };
 
   const handleErrorModal = (navigation) => {
-    setIsError(false)
-    navigation.navigate('MainScreen')
-  }
+    setIsError(false);
+    navigation.navigate("MainScreen");
+  };
 
-  console.log(authData)
+  console.log(authData);
 
   const handleLogin = async () => {
     try {
-      setLoading(true)
-      const response = await endpoint.post(
-        '/auth',
-        {
-          email: inputs.email,
-          password: inputs.password,
-        }
-      );
-      handleAuthData(response.data)
-      setLoading(false)
-      navigation.navigate('HomeScreen')
+      setLoading(true);
+      const response = await endpoint.post("/auth", {
+        email: inputs.email,
+        password: inputs.password,
+      });
+      handleAuthData(response.data);
+      setLoading(false);
+      navigation.navigate("HomeScreen");
     } catch (error) {
-      setLoading(false)
-      console.log(error)
-      setIsError(true)
+      setLoading(false);
+      console.log(error);
+      setIsError(true);
     }
-  }
+  };
 
   return (
-    <KeyboardAwareScrollView style={{flex: 1, backgroundColor: '#fff'}}>
+    <KeyboardAwareScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+      {loading && <Loader />}
 
-      { 
-        loading &&
-          <Loader />
-      }
-
-      {
-        !loading &&
-          <>
+      {!loading && (
+        <>
           <View style={styles.container}>
-          <AntDesign
-            name="arrowleft"
-            size={24}
-            color="black"
-            style={styles.arrow}
-            onPress={() => navigation.goBack()}
-          />
-
-          <Image style={styles.logo} source={require("../../assets/logo.png")} />
-
-          <Text style={styles.title}>Bienvenido a Home Quest!</Text>
-
-          <Text style={styles.subtitle}>Ingresar con mi E-Mail</Text>
-
-          <View style={styles.inputs}>
-            <TextInput
-              style={[styles.emailInput, styles.textInputs]}
-              variant="outlined"
-              placeholder="Ingresa tu E-mail"
-              placeholderTextColor={"#979797"}
-              inputContainerStyle={{ backgroundColor: "#E4E4E4" }}
-              keyboardType='email-address'
-              value={inputs.email}
-              onChangeText={(value) => handleChange('email', value)}
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={styles.arrow}
+              onPress={() => navigation.goBack()}
             />
 
-          <View style={styles.passwordInputView}>
+            <Image
+              style={styles.logo}
+              source={require("../../assets/logo.png")}
+            />
+
+            <Text style={styles.title}>Bienvenido a Home Quest!</Text>
+
+            <Text style={styles.subtitle}>Ingresar con mi E-Mail</Text>
+
+            <View style={styles.inputs}>
               <TextInput
-                style={[styles.passwordInput, styles.textInputs]}
-                secureTextEntry={secured}
-                autoCapitalize="none"
-                autoComplete="off"
-                autoCorrect={false}
-                placeholder="Ingresa tu contraseña"
+                style={[styles.emailInput, styles.textInputs]}
+                variant="outlined"
+                placeholder="Ingresa tu E-mail"
                 placeholderTextColor={"#979797"}
-                value={inputs.password}
-                onChangeText={(value) =>  handleChange('password', value)}
+                inputContainerStyle={{ backgroundColor: "#E4E4E4" }}
+                keyboardType="email-address"
+                value={inputs.email}
+                onChangeText={(value) => handleChange("email", value)}
               />
-              <Ionicons
-                style={styles.passwordInputIcon}
-                name={secured ? "eye-outline" : "eye-off-outline"}
-                size={24}
-                color="black"
-                onPress={() => setSecured((prev) => !prev)}
-              />
-                </View>
 
-                  <Pressable style={styles.button} onPress={handleLogin}>
-                    <GreenButton text={!loading ? 'Aceptar' : 'Enviando...'} />
-                  </Pressable>
-                </View>
+              <View style={styles.passwordInputView}>
+                <TextInput
+                  style={[styles.passwordInput, styles.textInputs]}
+                  secureTextEntry={secured}
+                  autoCapitalize="none"
+                  autoComplete="off"
+                  autoCorrect={false}
+                  placeholder="Ingresa tu contraseña"
+                  placeholderTextColor={"#979797"}
+                  value={inputs.password}
+                  onChangeText={(value) => handleChange("password", value)}
+                />
+                <Ionicons
+                  style={styles.passwordInputIcon}
+                  name={secured ? "eye-outline" : "eye-off-outline"}
+                  size={24}
+                  color="black"
+                  onPress={() => setSecured((prev) => !prev)}
+                />
+              </View>
+
+              <Pressable style={styles.button} onPress={handleLogin}>
+                <GreenButton text={!loading ? "Aceptar" : "Enviando..."} />
+              </Pressable>
             </View>
-            <ErrorMessage isVisible={isError} handleModalVisibility={() => handleErrorModal(navigation)}/>
-          </>
-      }
-
-      
+          </View>
+          {/* <ErrorMessage
+            isVisible={isError}
+            handleModalVisibility={() => handleErrorModal(navigation)}
+          /> */}
+        </>
+      )}
     </KeyboardAwareScrollView>
   );
 };
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
   arrow: {
     alignSelf: "flex-start",
     marginTop: 38,
-    marginLeft: 23
+    marginLeft: 23,
   },
   logo: {
     marginTop: 40,
@@ -208,6 +211,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 328,
-    marginTop: 44
-  }
+    marginTop: 44,
+  },
 });

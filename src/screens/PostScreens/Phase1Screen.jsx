@@ -12,7 +12,7 @@ export const Phase1Screen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {!authData.user ? (
+      {!authData ? (
         <>
           <SimpleHeader title={"Publicar"} />
           <UnregisteredMessage text={"publicar una propiedad"} screen={'Phase1Screen'}/>

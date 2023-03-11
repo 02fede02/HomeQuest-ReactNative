@@ -33,7 +33,7 @@ export const MainScreen = ({ navigation }) => {
 
       <View style={styles.buttonsContainer}>
         <Pressable onPress={() => navigation.navigate("LoginScreen")}>
-          <GreenButton route="LoginScreen" text="Iniciar sesión" />
+          <GreenButton text="Iniciar sesión" />
         </Pressable>
         <Pressable
           style={[styles.button, styles.buttonRegister]}
@@ -57,8 +57,6 @@ export const MainScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
-    
   },
   containerImg: {
     flex: 1,

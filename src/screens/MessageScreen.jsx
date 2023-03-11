@@ -65,9 +65,14 @@ export const MessageScreen = () => {
     <View style={[styles.container, isRead && styles.messageRead]}>
       <SimpleHeader title={"Mensajes"} />
 
-      {!authData.user ? (
-        <UnregisteredMessage text={"enviar un mensaje"} screen={'Mensajes'}/>
+      {!authData ? 
+      (
+      <UnregisteredMessage text={"enviar un mensaje"} screen={'Mensajes'}/>
       ) : (
+        <View style={styles.noMessageContainer}>
+        <Image source={require("../../assets/icons/no-message-icon.png")} />
+        <Text style={styles.noMessageText}>Aquí encontrarás todas las consultas que hagas sobre los anuncios publicados.</Text>
+      </View>
         //     <FlatList
         //   data={messages}
         //   renderItem={renderMessage}
@@ -77,10 +82,7 @@ export const MessageScreen = () => {
         //     <Text style={styles.emptyText}>No messages to display</Text>
         //   }
         // />
-        <View style={styles.noMessageContainer}>
-          <Image source={require("../../assets/icons/no-message-icon.png")} />
-          <Text style={styles.noMessageText}>Aquí encontrarás todas las consultas que hagas sobre los anuncios publicados.</Text>
-        </View>
+        
       )}
     </View>
   );

@@ -5,11 +5,11 @@ export const Loader = () => {
   return (
     <View style={ styles.container }>
         <Text style={styles.text}>¡Estamos confirmando tus datos!</Text>
-          <LottieView
+          {/* <LottieView
             source={require("../../assets/homeQuest-loader.json")}
             style={styles.animation}
             autoPlay
-          />
+          /> */}
     </View>
   );
 };
