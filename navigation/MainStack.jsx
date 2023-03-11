@@ -6,11 +6,7 @@ import {
   MainScreen,
   PropertyScreen,
   Register2Screen,
-<<<<<<< HEAD
   RegisterScreen
-=======
-  RegisterScreen,
->>>>>>> 5efbb278a3cb0d29b8e4d5ebf8e66d268f37edb8
 } from "../src/screens";
 import { TabNavigator } from "./TabNavigator";
 
@@ -19,14 +15,7 @@ const Stack = createNativeStackNavigator();
 export const MainStack = () => {
   return (
     <NavigationContainer>
-<<<<<<< HEAD
       <Stack.Navigator initialRouteName="MainScreen" screenOptions={{headerShown: false}}>
-=======
-      <Stack.Navigator
-        initialRouteName="MainScreen"
-        screenOptions={{ headerShown: false }}
-      >
->>>>>>> 5efbb278a3cb0d29b8e4d5ebf8e66d268f37edb8
         <Stack.Screen
           name="HomeScreen"
           component={TabNavigator}
@@ -56,7 +45,6 @@ export const MainStack = () => {
           component={Register2Screen}
           options={{ headerShown: false }}
         />
-<<<<<<< HEAD
         <Stack.Screen
         name="PropertyScreen"
         component={PropertyScreen}
@@ -68,15 +56,6 @@ export const MainStack = () => {
       component={ContactAgencyScreen}
       options={{ headerShown: false }}
     />
-=======
-        <Stack.Screen name="PropertyScreen" component={PropertyScreen} />
-
-        <Stack.Screen
-          name="ContactAgency"
-          component={ContactAgencyScreen}
-          options={{ headerShown: false }}
-        />
->>>>>>> 5efbb278a3cb0d29b8e4d5ebf8e66d268f37edb8
       </Stack.Navigator>
     </NavigationContainer>
   );

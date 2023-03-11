@@ -30,19 +30,22 @@ export const LoginScreen = ({ navigation }) => {
     try {
       setIsLoading( true );
 
-      const { data } = await endpoint.post( '/auth', JSON.stringify( formData ), {
+      const { data: { user, token } } = await endpoint.post( '/auth', JSON.stringify( formData ), {
         headers: {
           'Content-Type': 'application/json'
         }
       });
 
-      handleAuthData( data.user );
+      console.log(user);
+      console.log(token);
 
-      await SecureStore.setItemAsync( 'x-token', data.token );
+      // handleAuthData( data.user );
 
-      setIsLoading(false);
+      // await SecureStore.setItemAsync( 'x-token', data.token );
 
-      navigation.navigate('HomeScreen');
+      // setIsLoading(false);
+
+      // navigation.navigate('HomeScreen');
 
     } catch (error) {
       setIsLoading(false);
