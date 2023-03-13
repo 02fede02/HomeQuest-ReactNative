@@ -37,7 +37,7 @@ export const MenuScreen = ({ navigation }) => {
               source={require("../../assets/no-avatar.png")}
             />
             <View style={styles.nameContainer}>
-              <Text style={styles.nameText}>{authData.user.firstName} {authData.user.lastName}</Text>
+              <Text style={styles.nameText}>{authData.firstName} {authData.lastName}</Text>
               <Pressable onPress={() => navigation.navigate("Profile")}>
                 <Text style={styles.editText}>Editar perfil</Text>
               </Pressable>

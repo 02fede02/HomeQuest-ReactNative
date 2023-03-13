@@ -1,16 +1,15 @@
-import axios from "axios"
 import { endpoint } from "./endpoint"
 
 export const postAvatar = async (data, userId, token) => {
-  
+    console.log(token)
     try{
-      const response = await endpoint.put(`https://home-quest-app.onrender.com/api/v1/users/${userId}`, {
-        body: {
-          profilePicture: data
-        }
-        ,
+      const response = await endpoint.put(`/uploads/users/${userId}`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          "X-Auth-Token": token,
+          "content-type": "application/json"
+        },
+        body: {
+          file: data
         }
       })
       console.log('Respuesta: ', response)

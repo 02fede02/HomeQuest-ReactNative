@@ -17,16 +17,18 @@ export const ProfileScreen = () => {
   const handleOption = (str) => {
     setOption(str);
   };
-
+  
   const handleProfileImage = async () => {
     const image = await pickImageAsync()
-    if (image) {
-      const url = await uploadProfileImage(image)
-      setProfilePhoto(url)
-    }
-    if (profilePhoto) {
-      postAvatar(profilePhoto, authData.userId, authData.token)
-    }
+    
+    postAvatar(image.uri, authData.user.uid, authData.token)
+    // if (image) {
+    //   const url = await uploadProfileImage(image)
+    //   setProfilePhoto(url)
+    // }
+    // if (profilePhoto) {
+    //   postAvatar(profilePhoto, authData.userId, authData.token)
+    // }
   };
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export const ProfileScreen = () => {
           </Pressable>
         )}
         <Text style={styles.nameText}>
-          {authData.user.firstName} {authData.user.lastName}
+          {authData.firstName} {authData.lastName}
         </Text>
         <View style={styles.shadowContainer}>
           <View style={styles.middleContainer}>
